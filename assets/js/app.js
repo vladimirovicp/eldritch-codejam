@@ -11,12 +11,18 @@ const deckContainer = document.querySelector('.deck');
 let difficultyCurrent;
 let deckBtn;
 
+//azathoth
 const game = {
-    ancients: 'azathoth',
+    ancients: 'cthulhu',
     ancientsIndex: 0,
 }
 
-const colorCards = ['blueCards','brownCards','greenCards'];
+const variables = {
+    colorCards:['greenCards','brownCards','blueCards'],
+    stageTitle: ['Первая стадия','Вторая стадия','Третья стадия'],
+    stageName: ['firstStage','secondStage','thirdStage'],
+
+}
 
 // console.log(difficulties);
 console.log(ancients);
@@ -29,7 +35,7 @@ console.log(ancients);
 function ancientsItem(){
     ancients.forEach(el =>{
         // console.log(el.id);
-       // console.log(el.name);
+       console.log(el.name);
        //  console.log(el.cardFace);
 
         let div = document.createElement('div');
@@ -107,7 +113,9 @@ function deck(){
     deckContainer.appendChild(span);
 
     deckBtn = deckContainer.querySelector('.shuffle-button');
+
     deckBtn.addEventListener('click', deckClick);
+
 }
 
 deck();
@@ -115,18 +123,15 @@ deck();
 function deckClick(){
 
     deckContainer.innerHTML = '';
-
     let state = document.createElement('div');
     state.className = "deck__state-container";
-
-
     for (let i=0; i<3; i++){
         let stateDotContainer = document.createElement('div');
         stateDotContainer.className = 'deck__state';
 
         let span = document.createElement('span');
         span.className = "deck__state-text";
-        span.textContent='Первая стадия';
+        span.textContent= variables.stageTitle[i];
         stateDotContainer.appendChild(span);
 
         let stateDot = document.createElement('div');
@@ -135,8 +140,10 @@ function deckClick(){
         for (let j=0; j<3; j++){
             let divInfo = document.createElement('div');
             divInfo.className = "deck__dot";
-            divInfo.classList.add(colorCards[j]);
-            divInfo.textContent = ancients[game.ancientsIndex].firstStage[colorCards[j]];
+            divInfo.classList.add(variables.colorCards[j]);
+
+            divInfo.textContent = ancients[game.ancientsIndex][variables.stageName[i]][variables.colorCards[j]];
+
             stateDot.appendChild(divInfo);
         }
         stateDotContainer.appendChild(stateDot);
@@ -144,7 +151,19 @@ function deckClick(){
     }
 
     deckContainer.appendChild(state);
+
+
+
+    let backSideCard = document.createElement('div');
+    backSideCard.className = 'deck__card-back';
+    let backSideCardImg = document.createElement('img');
+    backSideCardImg["src"] =  './assets/mythicCardBackground.png';
+    backSideCard.append(backSideCardImg);
+
+    deckContainer.appendChild(backSideCard);
 }
+
+deckClick();
 
 
 

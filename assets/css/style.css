@@ -90,13 +90,17 @@
   justify-content: center;
 }
 .page .deck__dot-container .blueCards {
-  background-color: green;
+  background-color: blue;
 }
 .page .deck__dot-container .brownCards {
   background-color: brown;
 }
 .page .deck__dot-container .greenCards {
   background-color: green;
+}
+.page .deck__card-back {
+  width: 13rem;
+  height: 19rem;
 }
 
 /*# sourceMappingURL=style.css.map */

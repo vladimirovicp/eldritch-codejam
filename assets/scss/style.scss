@@ -96,7 +96,7 @@
         justify-content: center;
 
         .blueCards{
-          background-color: green;
+          background-color: blue;
         }
         .brownCards{
           background-color: brown;
@@ -104,6 +104,13 @@
         .greenCards{
           background-color: green;
         }
+      }
+    }
+
+    &__card{
+      &-back{
+        width: 13rem;
+        height: 19rem;
       }
     }
 
