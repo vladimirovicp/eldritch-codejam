@@ -1,5 +1,8 @@
 import difficulties from '../../data/difficulties.js';  // Уровни сложности
 import ancients from '../../data/ancients.js';
+// import ancientsData from "../../data/ancients.js";
+
+
 
 const ancientsContainer = document.querySelector('.ancients');
 const difficultyContainer = document.querySelector('.difficulty');
@@ -8,8 +11,20 @@ const deckContainer = document.querySelector('.deck');
 let difficultyCurrent;
 let deckBtn;
 
+const game = {
+    ancients: 'azathoth',
+    ancientsIndex: 0,
+}
+
+const colorCards = ['blueCards','brownCards','greenCards'];
+
 // console.log(difficulties);
-// console.log(ancients);
+console.log(ancients);
+
+
+// let indexAncients = ancients.findIndex(el => el.id === game.ancients);
+// console.log(indexAncients);
+
 
 function ancientsItem(){
     ancients.forEach(el =>{
@@ -24,6 +39,10 @@ function ancientsItem(){
         div.append(img);
         div.dataset.id = el.id;
         ancientsContainer.appendChild(div);
+
+        game.ancientsIndex = ancients.findIndex(ancients => ancients.id === game.ancients);
+
+        // console.log('ancientsIndex', game.ancientsIndex);
     });
 }
 ancientsItem();
@@ -46,9 +65,9 @@ function ancientsCardClick(e){
 
 
 function difficulty(){
-    difficultyContainer.innerHTML = '';
+    difficultyContainer.innerHTML = '<h2>Сложность:</h2>';
     difficulties.forEach(el =>{
-        console.log(el);
+        // console.log(el);
         let div = document.createElement('div');
         div.className = "difficulty__item";
         div.dataset.id = el.id;
@@ -74,7 +93,7 @@ function difficultyCardClick(e){
     difficultyCurrent.forEach(el =>{
         el.dataset.id === idDifficulty ? el.classList.add('active') : el.classList.remove('active');
     });
-    console.log(idDifficulty);
+    // console.log(idDifficulty);
 
     deck();
 }
@@ -94,7 +113,37 @@ function deck(){
 deck();
 
 function deckClick(){
-    console.log('клик')
+
+    deckContainer.innerHTML = '';
+
+    let state = document.createElement('div');
+    state.className = "deck__state-container";
+
+
+    for (let i=0; i<3; i++){
+        let stateDotContainer = document.createElement('div');
+        stateDotContainer.className = 'deck__state';
+
+        let span = document.createElement('span');
+        span.className = "deck__state-text";
+        span.textContent='Первая стадия';
+        stateDotContainer.appendChild(span);
+
+        let stateDot = document.createElement('div');
+        stateDot.className = "deck__dot-container";
+
+        for (let j=0; j<3; j++){
+            let divInfo = document.createElement('div');
+            divInfo.className = "deck__dot";
+            divInfo.classList.add(colorCards[j]);
+            divInfo.textContent = ancients[game.ancientsIndex].firstStage[colorCards[j]];
+            stateDot.appendChild(divInfo);
+        }
+        stateDotContainer.appendChild(stateDot);
+        state.appendChild(stateDotContainer);
+    }
+
+    deckContainer.appendChild(state);
 }
 
 

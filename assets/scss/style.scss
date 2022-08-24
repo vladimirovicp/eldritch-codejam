@@ -26,6 +26,10 @@
     gap: 20px;
     height: 100vh;
     justify-content: center;
+    h2{
+      font-size: 3rem;
+      color: white;
+    }
     &__item{
       font-size: 2rem;
       border: .2rem solid purple;
@@ -55,6 +59,54 @@
       cursor: pointer;
       padding: .5rem;
     }
+
+    &__state{
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      &-container{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-height: 30%;
+      }
+
+      &-text{
+        font-size: 2rem;
+        color: purple;
+      }
+    }
+
+    &__dot{
+      align-items: center;
+      border-radius: 50%;
+      display: flex;
+      height: 30px;
+      justify-content: center;
+      width: 30px;
+      font-size: 1.5rem;
+      color: white;
+
+      &-container{
+        align-items: center;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+
+        .blueCards{
+          background-color: green;
+        }
+        .brownCards{
+          background-color: brown;
+        }
+        .greenCards{
+          background-color: green;
+        }
+      }
+    }
+
   }
 
 }
