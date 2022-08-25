@@ -2,6 +2,8 @@ import difficulties from '../../data/difficulties.js';  // Уровни слож
 import ancients from '../../data/ancients.js';
 // import ancientsData from "../../data/ancients.js";
 
+import shuffle from './shuffle.js';
+
 
 
 const ancientsContainer = document.querySelector('.ancients');
@@ -10,22 +12,23 @@ const deckContainer = document.querySelector('.deck');
 
 let difficultyCurrent;
 let deckBtn;
+let cardBtn;
 
 //azathoth
 const game = {
     ancients: 'cthulhu',
     ancientsIndex: 0,
+    difficulty: 'very-easy',
 }
 
 const variables = {
     colorCards:['greenCards','brownCards','blueCards'],
     stageTitle: ['Первая стадия','Вторая стадия','Третья стадия'],
     stageName: ['firstStage','secondStage','thirdStage'],
-
 }
 
 // console.log(difficulties);
-console.log(ancients);
+// console.log(ancients);
 
 
 // let indexAncients = ancients.findIndex(el => el.id === game.ancients);
@@ -35,7 +38,7 @@ console.log(ancients);
 function ancientsItem(){
     ancients.forEach(el =>{
         // console.log(el.id);
-       console.log(el.name);
+       // console.log(el.name);
        //  console.log(el.cardFace);
 
         let div = document.createElement('div');
@@ -46,9 +49,9 @@ function ancientsItem(){
         div.dataset.id = el.id;
         ancientsContainer.appendChild(div);
 
-        game.ancientsIndex = ancients.findIndex(ancients => ancients.id === game.ancients);
+        //game.ancients = el.id;
+        //game.ancientsIndex = ancients.findIndex(ancients => ancients.id === game.ancients);
 
-        // console.log('ancientsIndex', game.ancientsIndex);
     });
 }
 ancientsItem();
@@ -64,8 +67,10 @@ if (ancientsCard.length > 0){
 function ancientsCardClick(e){
     const targetAncients = e.currentTarget;
     const idAncients = targetAncients.dataset.id;
-    // console.log(idAncients);
 
+    game.ancients = idAncients;
+    game.ancientsIndex = ancients.findIndex(ancients => ancients.id === game.ancients);
+    //console.log(game)
     difficulty();
 }
 
@@ -76,6 +81,8 @@ function difficulty(){
         // console.log(el);
         let div = document.createElement('div');
         div.className = "difficulty__item";
+
+        if (el.id === game.difficulty){div.classList.add('active')}
         div.dataset.id = el.id;
         div.textContent = el.name;
         difficultyContainer.appendChild(div);
@@ -96,11 +103,11 @@ difficulty()
 function difficultyCardClick(e){
     const targetDifficulty = e.currentTarget;
     const idDifficulty = targetDifficulty.dataset.id;
+    game.difficulty = idDifficulty;
     difficultyCurrent.forEach(el =>{
         el.dataset.id === idDifficulty ? el.classList.add('active') : el.classList.remove('active');
-    });
-    // console.log(idDifficulty);
 
+    });
     deck();
 }
 
@@ -109,18 +116,30 @@ function deck(){
     deckContainer.innerHTML = '';
     let span = document.createElement('span');
     span.className = "shuffle-button";
-    span.textContent =' Замешать колоду';
+    span.textContent ='Замешать колоду';
     deckContainer.appendChild(span);
-
     deckBtn = deckContainer.querySelector('.shuffle-button');
-
     deckBtn.addEventListener('click', deckClick);
-
 }
 
 deck();
 
 function deckClick(){
+
+    switch (game.difficulty){
+        // case 'very-easy': console.log( 'Уровень сложности: very-easy');
+        case 'very-easy': shuffle();
+            break;
+        case 'easy': console.log( 'Уровень сложности: easy');
+            break;
+        case 'normal': console.log( 'Уровень сложности: normal');
+            break;
+        case 'hard': console.log( 'Уровень сложности: hard');
+            break;
+        case 'very-hard': console.log( 'Уровень сложности: very-hard');
+            break;
+        default: console.log( 'Не определена сложность!');
+    }
 
     deckContainer.innerHTML = '';
     let state = document.createElement('div');
@@ -153,17 +172,31 @@ function deckClick(){
     deckContainer.appendChild(state);
 
 
-
     let backSideCard = document.createElement('div');
     backSideCard.className = 'deck__card-back';
     let backSideCardImg = document.createElement('img');
     backSideCardImg["src"] =  './assets/mythicCardBackground.png';
     backSideCard.append(backSideCardImg);
-
     deckContainer.appendChild(backSideCard);
+
+    cardBtn = deckContainer.querySelector('.deck__card-back');
+    cardBtn.addEventListener('click', cardClick);
 }
 
-deckClick();
+// deckClick();
+
+function cardClick(){
+    console.log('cardClick');
+
+    let frontSideCard = document.createElement('div');
+    frontSideCard.className = 'deck__card-front';
+    let frontSideCardImg = document.createElement('img');
+    frontSideCardImg["src"] =  './assets/mythicCardBackground.png';
+    frontSideCard.append(frontSideCardImg);
+    deckContainer.appendChild(frontSideCard);
+
+
+}
 
 
 
