@@ -12,6 +12,22 @@ export default function shuffle(numberCard,difficulty) {
         blue: []
     };
 
+    let cardsStage = {
+        'stage1':  [],
+    }
+
+
+
+        // 'stage2':  {
+        //     id: '',
+        //     color: ''
+        // },
+        // 'stage3':  {
+        //     id: '',
+        //     color: ''
+        // },
+    ;
+
     switch (difficulty){
         // case 'very-easy': console.log( 'Уровень сложности: very-easy');
         case 'very-easy': shuffleVeryEasy();
@@ -36,18 +52,80 @@ export default function shuffle(numberCard,difficulty) {
         // easy - снежинки
         // normal - обычные карты
 
-        cardsId.green = selectionVeryEasy(greenCardsAssets,numberCard);
-        cardsId.brown = selectionVeryEasy(brownCardsAssets,numberCard);
-        cardsId.blue = selectionVeryEasy(blueCardsAssets,numberCard);
 
-        console.log(cardsId.green);
-        console.log(cardsId.brown);
-        console.log(cardsId.blue);
+        // console.log(selectionVeryEasy(greenCardsAssets,numberCard))
+        cardsId.green = shuffleTrue(selectionVeryEasy(greenCardsAssets,numberCard));
+        cardsId.brown = shuffleTrue(selectionVeryEasy(brownCardsAssets,numberCard));
+        cardsId.blue  = shuffleTrue(selectionVeryEasy(blueCardsAssets,numberCard));
 
 
-        // console.log(numberCard);
+        // console.log(cardsStage[0]['stage1'])
+        // cardsStage.stage1[0].id.push(10);
+        // cardsStage.stage1[0] = {id: '20'};
+        // cardsStage.stage1[1] = {id: '30'};
+        // cardsStage
 
-    }
+        // stage1
+
+        for (let i=0; i < 3; i++){
+
+            // cardsStage['stage' + i] =
+
+            console.log('stage', i + 1);
+
+            console.log(numberCard.blueCards['stage' + (i + 1)]);
+
+            let stage = [];
+
+            // for (let j=0; j < numberCard.blueCards['stage' + (i + 1)]; j++){
+            for (let j=0; j < 3; j++){
+
+                    stage.push({id: '20', color: 'red'});
+
+                    // cardsStage['stage' + i].id.push('1') ;  //cardsId.green.pop()
+                    // cardsStage['stage' + i + 1] = {id: '123'};
+
+
+                }
+            console.log(stage);
+            }
+
+
+
+            // console.log(cardsStage);
+
+        }
+
+
+
+
+        // console.log(cardsId.green);
+        // console.log(cardsId.brown);
+        // console.log(cardsId.blue);
+        //
+        // console.log(numberCard)
+
+
+
+        // console.log(numberCard.greenCards.number);
+        // console.log('length',cardsId.green.length)
+        // console.log(cardsId.green)
+
+        // for (let i=0; i < numberCard.greenCards.number; i++){
+        //     //console.log(cardsId.green)
+        //     //console.log(cardsId.green.pop())
+        //
+        //     console.log(getRandomInt(0, cardsId.green.length))
+        //
+        //     shuffleGreen[getRandomInt(0, cardsId.green.length)] = cardsId.green.pop();
+        //
+        // }
+
+        // console.log(shuffleGreen);
+
+
+
+    // }
 
     // Легкий уровень сложности: из набора убираются карты с щупальцами
     // hard
@@ -64,22 +142,13 @@ export default function shuffle(numberCard,difficulty) {
     function selectionVeryEasy(cardsAssets,numberCard){
         let mainCardID = []
 
-        // console.log(cardsAssets);
-
         for (let key in cardsAssets) {
             if (cardsAssets[key].difficulty === 'easy'){
                 mainCardID.push(cardsAssets[key].id);
             }
         }
-        
-        // console.log(numberCard[cardsAssets[0].color + 'Cards'].number);
-        // console.log(cardsAssets[0].color)
 
         let numberCardCurrent = parseInt(numberCard[cardsAssets[0].color + 'Cards'].number);
-        console.log(typeof numberCardCurrent)
-
-        console.log(numberCardCurrent, mainCardID.length)
-
         if(mainCardID.length  < numberCardCurrent){
             for (let key in cardsAssets) {
                 if (cardsAssets[key].difficulty === 'normal'){
@@ -92,4 +161,21 @@ export default function shuffle(numberCard,difficulty) {
             }
         }
         return mainCardID;
+    }
+
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    }
+
+    function shuffleTrue(array) {
+
+        for (let i = array.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+
+        return array;
     }
