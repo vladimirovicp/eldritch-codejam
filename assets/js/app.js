@@ -126,19 +126,25 @@ deck();
 
 function deckClick(){
 
-    switch (game.difficulty){
-        // case 'very-easy': console.log( 'Уровень сложности: very-easy');
-        case 'very-easy': shuffle();
-            break;
-        case 'easy': console.log( 'Уровень сложности: easy');
-            break;
-        case 'normal': console.log( 'Уровень сложности: normal');
-            break;
-        case 'hard': console.log( 'Уровень сложности: hard');
-            break;
-        case 'very-hard': console.log( 'Уровень сложности: very-hard');
-            break;
-        default: console.log( 'Не определена сложность!');
+    let numberCard = {
+        greenCards: {
+            number: 0,
+            stage1: 0,
+            stage2: 0,
+            stage3: 0,
+        },
+        brownCards: {
+            number: 0,
+            stage1: 0,
+            stage2: 0,
+            stage3: 0,
+        },
+        blueCards: {
+            number: 0,
+            stage1: 0,
+            stage2: 0,
+            stage3: 0,
+        }
     }
 
     deckContainer.innerHTML = '';
@@ -160,14 +166,40 @@ function deckClick(){
             let divInfo = document.createElement('div');
             divInfo.className = "deck__dot";
             divInfo.classList.add(variables.colorCards[j]);
-
             divInfo.textContent = ancients[game.ancientsIndex][variables.stageName[i]][variables.colorCards[j]];
+
+            numberCard[variables.colorCards[j]].number += ancients[game.ancientsIndex][variables.stageName[i]][variables.colorCards[j]];
+            numberCard[variables.colorCards[j]]['stage'+ (i+1)] = ancients[game.ancientsIndex][variables.stageName[i]][variables.colorCards[j]];
+
+            // console.log(variables.colorCards[j],numberCard[variables.colorCards[j]].number);
 
             stateDot.appendChild(divInfo);
         }
         stateDotContainer.appendChild(stateDot);
         state.appendChild(stateDotContainer);
     }
+
+
+    // console.log(numberCard);
+
+    shuffle(numberCard,game.difficulty);
+
+    // switch (game.difficulty){
+    //     // case 'very-easy': console.log( 'Уровень сложности: very-easy');
+    //     case 'very-easy': shuffle();
+    //         break;
+    //     case 'easy': console.log( 'Уровень сложности: easy');
+    //         break;
+    //     case 'normal': console.log( 'Уровень сложности: normal');
+    //         break;
+    //     case 'hard': console.log( 'Уровень сложности: hard');
+    //         break;
+    //     case 'very-hard': console.log( 'Уровень сложности: very-hard');
+    //         break;
+    //     default: console.log( 'Не определена сложность!');
+    // }
+
+
 
     deckContainer.appendChild(state);
 
@@ -187,13 +219,21 @@ function deckClick(){
 
 function cardClick(){
     console.log('cardClick');
+    let frontSideCard;
+    if(deckContainer.querySelector('.deck__card-front')){
+        frontSideCard = deckContainer.querySelector('.deck__card-front');
+        deckContainer.querySelector('.deck__card-front').innerHTML = ''
+    } else {
+        frontSideCard = document.createElement('div');
+        frontSideCard.className = 'deck__card-front';
+    }
 
-    let frontSideCard = document.createElement('div');
-    frontSideCard.className = 'deck__card-front';
     let frontSideCardImg = document.createElement('img');
-    frontSideCardImg["src"] =  './assets/mythicCardBackground.png';
+    frontSideCardImg["src"] =  './assets/home.png';
     frontSideCard.append(frontSideCardImg);
-    deckContainer.appendChild(frontSideCard);
+    deckContainer.append(frontSideCard);
+
+
 
 
 }
