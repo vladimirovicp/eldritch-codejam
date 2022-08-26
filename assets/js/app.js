@@ -14,6 +14,8 @@ let difficultyCurrent;
 let deckBtn;
 let cardBtn;
 
+let currentStage = 1;
+
 //azathoth
 const game = {
     ancients: 'cthulhu',
@@ -182,7 +184,9 @@ function deckClick(){
 
     // console.log(numberCard);
 
-    shuffle(numberCard,game.difficulty);
+    const mainCards = shuffle(numberCard,game.difficulty);
+
+    // console.log(mainCards);
 
     // switch (game.difficulty){
     //     // case 'very-easy': console.log( 'Уровень сложности: very-easy');
@@ -203,7 +207,6 @@ function deckClick(){
 
     deckContainer.appendChild(state);
 
-
     let backSideCard = document.createElement('div');
     backSideCard.className = 'deck__card-back';
     let backSideCardImg = document.createElement('img');
@@ -212,13 +215,39 @@ function deckClick(){
     deckContainer.appendChild(backSideCard);
 
     cardBtn = deckContainer.querySelector('.deck__card-back');
-    cardBtn.addEventListener('click', cardClick);
+    cardBtn.addEventListener('click', ()=> cardClick(mainCards));
 }
 
 // deckClick();
 
-function cardClick(){
-    console.log('cardClick');
+function cardClick(mainCards){
+    // console.log(mainCards);
+    // console.log(mainCards['stage' + currentStage].length);
+
+    if (currentStage === 4){
+        alert('final!');
+        return null;
+    }
+
+    if (mainCards['stage' + currentStage].length === 0){
+        currentStage++;
+    }
+
+    if (currentStage === 4){
+        alert('final!');
+        return null;
+    }
+
+    // console.log(mainCards['stage' + currentStage]);
+
+    // console.log(mainCards['stage' + currentStage]);
+    // console.log('currentStage',currentStage);
+
+    const currentCard = mainCards['stage' + currentStage].pop();
+
+    // console.log(currentCard);
+    // console.log(currentCard.color)
+
     let frontSideCard;
     if(deckContainer.querySelector('.deck__card-front')){
         frontSideCard = deckContainer.querySelector('.deck__card-front');
@@ -228,13 +257,29 @@ function cardClick(){
         frontSideCard.className = 'deck__card-front';
     }
 
+    // switch (currentCard.color){
+    //     case 'blue':
+    //         break;
+    // }
+
+    const deckState = deckContainer.querySelectorAll('.deck__state');
+    let dot = deckState[currentStage - 1].querySelector('.' + currentCard.color + 'Cards');
+
+    //currentStage
+
+    // let dot = deckContainer.querySelector('.' + currentCard.color + 'Cards');
+
+    dot.textContent = dot.textContent - 1;
+
+    // if(currentCard.color === 'blue'){
+    //
+    // }
+
+
     let frontSideCardImg = document.createElement('img');
-    frontSideCardImg["src"] =  './assets/home.png';
+    frontSideCardImg["src"] =  currentCard.cardFace;
     frontSideCard.append(frontSideCardImg);
     deckContainer.append(frontSideCard);
-
-
-
 
 }
 

@@ -6,15 +6,13 @@ export default function shuffle(numberCard,difficulty) {
 
     //console.log(brownCardsAssets);
 
-    let cardsId = {
+    let cards = {
         green: [],
         brown: [],
         blue: []
     };
 
-    let cardsStage = {
-        'stage1':  [],
-    }
+    const cardsStage = {}
 
 
 
@@ -54,78 +52,36 @@ export default function shuffle(numberCard,difficulty) {
 
 
         // console.log(selectionVeryEasy(greenCardsAssets,numberCard))
-        cardsId.green = shuffleTrue(selectionVeryEasy(greenCardsAssets,numberCard));
-        cardsId.brown = shuffleTrue(selectionVeryEasy(brownCardsAssets,numberCard));
-        cardsId.blue  = shuffleTrue(selectionVeryEasy(blueCardsAssets,numberCard));
+        cards.green = shuffleTrue(selectionVeryEasy(greenCardsAssets,numberCard));
+        cards.brown = shuffleTrue(selectionVeryEasy(brownCardsAssets,numberCard));
+        cards.blue  = shuffleTrue(selectionVeryEasy(blueCardsAssets,numberCard));
 
+        // console.log(cards);
 
-        // console.log(cardsStage[0]['stage1'])
-        // cardsStage.stage1[0].id.push(10);
-        // cardsStage.stage1[0] = {id: '20'};
-        // cardsStage.stage1[1] = {id: '30'};
-        // cardsStage
-
-        // stage1
 
         for (let i=0; i < 3; i++){
+            const stage = [];
 
-            // cardsStage['stage' + i] =
-
-            console.log('stage', i + 1);
-
-            console.log(numberCard.blueCards['stage' + (i + 1)]);
-
-            let stage = [];
-
-            // for (let j=0; j < numberCard.blueCards['stage' + (i + 1)]; j++){
-            for (let j=0; j < 3; j++){
-
-                    stage.push({id: '20', color: 'red'});
-
-                    // cardsStage['stage' + i].id.push('1') ;  //cardsId.green.pop()
-                    // cardsStage['stage' + i + 1] = {id: '123'};
-
-
-                }
-            console.log(stage);
+            // blue
+            for (let j=0; j < numberCard.blueCards['stage' + (i + 1)]; j++){
+                stage.push(cards.blue.pop());
             }
 
+            // brown
+            for (let j=0; j < numberCard.brownCards['stage' + (i + 1)]; j++){
+                stage.push(cards.brown.pop());
+            }
 
-
-            // console.log(cardsStage);
-
+            // green
+            for (let j=0; j < numberCard.greenCards['stage' + (i + 1)]; j++){
+                stage.push(cards.green.pop());
+            }
+            cardsStage['stage' + (i + 1)] = shuffleTrue(stage);
         }
 
+        // return cardsStage;
+    }
 
-
-
-        // console.log(cardsId.green);
-        // console.log(cardsId.brown);
-        // console.log(cardsId.blue);
-        //
-        // console.log(numberCard)
-
-
-
-        // console.log(numberCard.greenCards.number);
-        // console.log('length',cardsId.green.length)
-        // console.log(cardsId.green)
-
-        // for (let i=0; i < numberCard.greenCards.number; i++){
-        //     //console.log(cardsId.green)
-        //     //console.log(cardsId.green.pop())
-        //
-        //     console.log(getRandomInt(0, cardsId.green.length))
-        //
-        //     shuffleGreen[getRandomInt(0, cardsId.green.length)] = cardsId.green.pop();
-        //
-        // }
-
-        // console.log(shuffleGreen);
-
-
-
-    // }
 
     // Легкий уровень сложности: из набора убираются карты с щупальцами
     // hard
@@ -137,30 +93,33 @@ export default function shuffle(numberCard,difficulty) {
     // Очень высокий уровень сложности: из набора берутся все карты со щупальцами, если карт не хватает то добираются обычные карты
     // hard
 
+
+    return cardsStage;
+
 }
 
     function selectionVeryEasy(cardsAssets,numberCard){
-        let mainCardID = []
+        let mainCard = [];
 
         for (let key in cardsAssets) {
             if (cardsAssets[key].difficulty === 'easy'){
-                mainCardID.push(cardsAssets[key].id);
+                mainCard.push({id: cardsAssets[key].id,cardFace: cardsAssets[key].cardFace,difficulty: cardsAssets[key].difficulty,color: cardsAssets[key].color });
             }
         }
 
         let numberCardCurrent = parseInt(numberCard[cardsAssets[0].color + 'Cards'].number);
-        if(mainCardID.length  < numberCardCurrent){
+        if(mainCard.length  < numberCardCurrent){
             for (let key in cardsAssets) {
                 if (cardsAssets[key].difficulty === 'normal'){
 
-                    mainCardID.push(cardsAssets[key].id);
-                    if(mainCardID.length  > numberCardCurrent){
+                    mainCard.push({id: cardsAssets[key].id,cardFace: cardsAssets[key].cardFace,difficulty: cardsAssets[key].difficulty,color: cardsAssets[key].color});
+                    if(mainCard.length  > numberCardCurrent){
                         break;
                     }
                 }
             }
         }
-        return mainCardID;
+        return mainCard;
     }
 
 
