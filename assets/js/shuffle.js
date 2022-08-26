@@ -1,6 +1,6 @@
-import greenCardsAssets from '../../Data/MythicCards/green/index.js';
-import brownCardsAssets from '../../Data/MythicCards/brown/index.js';
-import blueCardsAssets from '../../Data/MythicCards/blue/index.js';
+import greenCardsAssets from '../../data/mythicCards/green/index.js';
+import brownCardsAssets from '../../data/mythicCards/brown/index.js';
+import blueCardsAssets from '../../data/mythicCards/blue/index.js';
 
 export default function shuffle(numberCard,difficulty) {
 
