@@ -1,3 +1,5 @@
+[link](https://vladimirovicp.github.io/eldritch-codejam/)
+
 # Eldritch Horror Codejam
 
 ## Описание проекта
