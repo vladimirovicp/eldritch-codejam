@@ -17,6 +17,17 @@
 .page .ancients__card {
   width: 20rem;
   height: 26rem;
+  cursor: pointer;
+}
+.page .ancients__card.active {
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page .ancients__card.active img {
+  width: 95%;
+  height: auto;
 }
 .page .difficulty {
   display: flex;
