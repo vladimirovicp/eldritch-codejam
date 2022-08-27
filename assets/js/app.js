@@ -31,6 +31,7 @@ function ancientsItem(){
         div.className = "ancients__card";
         let img = document.createElement('img');
         img["src"] =  el.cardFace;
+        img["alt"] = el.id;
         div.append(img);
         div.dataset.id = el.id;
         ancientsContainer.appendChild(div);
@@ -52,6 +53,12 @@ function ancientsCardClick(e){
     game.ancientsIndex = ancients.findIndex(ancients => ancients.id === game.ancients);
     currentStage = 1;
     deckContainer.innerHTML = '';
+
+    ancientsCard .forEach(el =>{
+        el.dataset.id === game.ancients ? el.classList.add('active') : el.classList.remove('active');
+
+    });
+
     difficulty();
 }
 
@@ -208,6 +215,9 @@ function cardClick(mainCards){
     frontSideCard.append(frontSideCardImg);
     deckContainer.append(frontSideCard);
 }
+
+
+console.log('Приветствую!\nБлагодарю за проверку!\n')
 
 
 

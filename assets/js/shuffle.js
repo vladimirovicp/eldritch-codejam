@@ -16,7 +16,7 @@ export default function shuffle(numberCard,difficulty) {
         cards.brown = shuffleTrue(selectionDifficulty(brownCardsAssets,numberCard,difficulty));
         cards.blue  = shuffleTrue(selectionDifficulty(blueCardsAssets,numberCard,difficulty));
 
-        console.log(cards);
+        // console.log(cards);
 
         for (let i=0; i < 3; i++){
             const stage = [];
